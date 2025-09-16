@@ -42,8 +42,10 @@ export function createApp() {
 }
 
 // Initialize DB (migrate + optional seed) before starting server
-migrate(db as any, { isNewFile });
+// but only if it's a new file
 if (isNewFile) {
+  console.log("Migrating and seeding DB");
+  migrate(db as any, { isNewFile });
   seed(db as any);
 }
 

@@ -50,8 +50,9 @@ interface InternalFilterState {
 
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_FILTERS: InternalFilterState = {
-  sort: "updatedAt",
-  order: "desc",
+  // Default UI sorting: title ascending (alphabetical)
+  sort: "title",
+  order: "asc",
   status: "all",
 };
 
