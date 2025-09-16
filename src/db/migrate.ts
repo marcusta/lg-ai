@@ -1,6 +1,9 @@
-import type { DB } from './index';
+import type { DB } from "./index";
+import { db, isNewFile } from "./index";
 
 const SCHEMA_SQL = `
+DROP TABLE IF EXISTS todo_tags;
+DROP TABLE IF EXISTS todos;
 CREATE TABLE IF NOT EXISTS todos (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
@@ -26,4 +29,10 @@ CREATE INDEX IF NOT EXISTS idx_tags_tag ON todo_tags(tag);
 
 export function migrate(db: DB, _opts: { isNewFile: boolean }) {
   db.exec(SCHEMA_SQL);
+}
+
+// Allow running this file directly via `npm run db:migrate`
+if (require.main === module) {
+  migrate(db as any, { isNewFile });
+  console.log("Migration complete");
 }
